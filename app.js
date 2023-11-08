@@ -1,5 +1,14 @@
 const express = require('express')
+
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+  }
+  
+const db = require('./config/mongoose')
+
+
 const app = express()
+
 
 app.get('/', (req, res) => { res.send('hellow world') })
 
