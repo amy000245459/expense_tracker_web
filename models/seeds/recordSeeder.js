@@ -1,12 +1,13 @@
-const bcrypt = require('bcryptjs')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
+const db = require('../../config/mongoose')
+
+const bcrypt = require('bcryptjs')
 const Record = require('../record')
 const User = require('../user')
 const Category = require('../category')
 
-const db = require('../../config/mongoose')
 const SEED_USER = {
   name: 'root',
   email: 'root@example.com',
@@ -17,16 +18,25 @@ db.once('open', () => {
   bcrypt
     .genSalt(10)
     .then(salt => bcrypt.hash(SEED_USER.password, salt))
-    .then(hash => User.create({ 
-      name: SEED_USER.name,
-      email: SEED_USER.email,
-      password: hash
-    }))
-    .then(user => {
+    .then(hash => {
+      return Promise.all([
+        User.create({
+          name: SEED_USER.name,
+          email: SEED_USER.email,
+          password: hash
+          }),
+          Category.findOne()
+      ])
+    })
+    .then(([user,category]) => {
       const userId = user._id
-      for (let i = 0; i < 10; i++) {
-        Record.create({ name: `name-${i}`, amount: i*10, userId, categoryId: 1 })
-      }
+      const categoryId = category._id
+      const temp = Array.from({length: 10}, (_, i) => i + 1)
+      return Promise.all(
+        temp.map((value, _index) => {
+          return Record.create({ name: `name-${value}`, amount: value*10, userId, categoryId })
+        })
+      )
     })
     .then(() => {
       console.log('done.')
