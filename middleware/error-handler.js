@@ -1,6 +1,7 @@
 module.exports = {
     // 網頁版本的錯誤是顯示在 flash message
     generalErrorHandler (err, req, res, next) {
+      console.log(err)
       if (err instanceof Error) {
         req.flash('error_messages', `${err.name}: ${err.message}`)
       } else {

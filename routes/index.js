@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const expenseController = require('../controllers/expense-controller')
+const recordController = require('../controllers/record-controller')
 const { generalErrorHandler } = require('../middleware/error-handler')
 
-router.get('/records', expenseController.getExpense)
+router.get('/records/new', recordController.addRecord)
+router.post('/records', recordController.postRecord)
+router.get('/records', recordController.getRecords)
 router.use('/', (req, res) => res.redirect('/records'))
 router.use('/', generalErrorHandler)
 

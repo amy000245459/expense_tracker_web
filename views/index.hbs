@@ -1,4 +1,5 @@
 
+<div class="mb-4 text-center">
 <table class="table table-striped">
   <tbody>
     <tr>
@@ -14,7 +15,7 @@
       <td> {{ this.amount }}</td>
        
       <td> 
-              <a class="btn btn-light" href="./todos/{{ this._id }}/edit">edit</a>
+              <a class="btn btn-light" href="./records/{{ this._id }}/edit">edit</a>
               <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
                 <button class="btn btn-light" type="submit">delete</button>
               </form>
@@ -24,3 +25,5 @@
     {{/each}}
   </tbody>
 </table>
+<a class="btn btn-warning" href="./records/new">新增支出</a>
+</div>
