@@ -29,12 +29,10 @@ db.once('open', () => {
       ])
     })
     .then(([user,category]) => {
-      const userId = user._id
-      const categoryId = category._id
       const temp = Array.from({length: 10}, (_, i) => i + 1)
       return Promise.all(
         temp.map((value, _index) => {
-          return Record.create({ name: `name-${value}`, amount: value*10, userId, categoryId })
+          return Record.create({ name: `name-${value}`, amount: value*10, user:user._id, category:category._id })
         })
       )
     })

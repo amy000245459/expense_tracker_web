@@ -1,23 +1,26 @@
 
-<ul class="list-group">
-  <p> test </p>
-  {{#each records}}
-  <li class="list-group-item">
-    <div class="row">
-      <div class="col-auto me-auto">
-        
-        <h4 style="display: inline; vertical-align: middle;">
-          {{ this.name }}
-        </h4>
-      </div>
-      <div class="col-auto">
-        <a class="btn btn-secondary" href="./todos/{{ this._id }}">detail</a>
-        <a class="btn btn-success" href="./todos/{{ this._id }}/edit">edit</a>
-        <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-          <button class="btn btn-danger" type="submit">delete</button>
-        </form>
-      </div>
-    </div>
-  </li>
-  {{/each}}
-</ul>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <td>總金額: </td>
+        <td><h1 class="display-5"><p class="text-warning">total amount</p></h1></td>
+    </tr>
+    {{#each records}}
+    <tr>
+      <td> <!--{{ this.categoryId }} {{ this.date }}-->
+            {{ this.category.name }}
+            {{ this.name }}
+      </td>
+      <td> {{ this.amount }}</td>
+       
+      <td> 
+              <a class="btn btn-light" href="./todos/{{ this._id }}/edit">edit</a>
+              <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+                <button class="btn btn-light" type="submit">delete</button>
+              </form>
+
+      </td>  
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
