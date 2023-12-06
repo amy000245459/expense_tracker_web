@@ -29,11 +29,14 @@ recordController = {
       User.findOne()
         .lean()
         .then(user => {
-          const { name, date, amount, category } = req.body
+          const { name, date, amount, categoryId } = req.body
           if (!name) throw new Error('User name is required!')
-          Record.create({ name, date, amount, category, user:user._id })
+          Record.create({ name, date, amount, categoryId, user:user._id })
         })
-      .then(() => res.redirect('/records'))
+      .then(() => {
+        req.flash('success_msg', `A record has been added`)
+        res.redirect('/records')
+      })
       .catch(err => next(err))
     },
     getRecord: (req, res, next) => {
@@ -51,14 +54,26 @@ recordController = {
       .catch(err => next(err))
     },
     putRecord: (req, res, next) => {
-      const { name, date, amount, category } = req.body
+      const { name, date, amount, categoryId } = req.body
       Record.findById(req.params.id)
       .then( record =>{
-        return record.update({ name, date, amount, categoryId:category })
+        return record.update({ name, date, amount, categoryId })
       })
-      .then(() => res.redirect('/records'))
+      .then(() => {
+        req.flash('success_msg', `A record has been updated`)
+        res.redirect('/records')
+      })
       .catch(err => next(err))
-    }
+    },
+    deleteRecord: (req, res, next) => {
+      const _id = req.params.id
+      return  Record.findOneAndDelete({ _id })
+        .then(record => {
+          req.flash('success_msg', `A record has been removed`)
+          res.redirect('/records')
+          })
+        .catch(error => next(error))
+    },
 }
 
 module.exports = recordController
