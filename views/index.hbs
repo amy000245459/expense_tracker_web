@@ -8,14 +8,15 @@
     </tr>
     {{#each records}}
     <tr>
-      <td> <!--{{ this.categoryId }} {{ this.date }}-->
-            {{ this.category.name }}
+      <td> 
+            {{ this.date }}
+            {{ this.categoryId.name }}
             {{ this.name }}
       </td>
       <td> {{ this.amount }}</td>
        
       <td> 
-              <a class="btn btn-light" href="./records/{{ this._id }}/edit">edit</a>
+              <a class="btn btn-light" href="./records/{{this._id }}">edit</a>
               <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
                 <button class="btn btn-light" type="submit">delete</button>
               </form>
