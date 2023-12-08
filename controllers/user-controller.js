@@ -1,11 +1,15 @@
 const User = require('../models/user')
+const passport = require('passport')
 
 userController = {
     signInPage: (req, res, next) => { 
         res.render('signin')
     },
     signIn: (req, res, next) => { 
-        pass
+        passport.authenticate('local', {
+            successRedirect: '/records',
+            failureRedirect: '/users/signin'
+          })
     },
     signUpPage: (req, res, next) => { 
         res.render('signup')

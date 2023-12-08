@@ -6,6 +6,7 @@ const exphbs = require('express-handlebars')
 const session = require('express-session')
 const flash = require('connect-flash')
 const methodOverride = require('method-override')
+const usePassport = require('./config/passport')
 const routes = require('./routes')
 require('./config/mongoose')
 
@@ -23,7 +24,8 @@ app.use((req, res, next) => {
   res.locals.warning_msg = req.flash('warning_msg')  
   next()
  })
-
+ usePassport(app)
+ 
 app.use(routes)
 app.listen(PORT, () => {
     console.log('App is running on http://localhost:3000')
