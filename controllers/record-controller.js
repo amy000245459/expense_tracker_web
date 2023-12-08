@@ -1,6 +1,7 @@
 const Record = require('../models/record')
 const Category = require('../models/category')
 const User = require('../models/user')
+const CATEGORY_ICON = require('../helper/icon.js')
 const moment = require('moment')
 
 recordController = {
@@ -11,8 +12,12 @@ recordController = {
         .lean()
         .sort({ _id: 'asc' }) // desc
         .then(records => {
-          records = records.map(({date,...rest}) => {return {...rest,date: moment(date).format("YYYY MMM DD")}})
-          res.render('index', { records })
+          records = records.map(({date,categoryId,...rest}) => {
+            return {...rest,categoryId,
+                    date: moment(date).format("YYYY MMM DD"),
+                    Category: CATEGORY_ICON[categoryId.name]}})
+          
+          res.render('index', { records,  CATEGORY_ICON})
         })
         .catch(err =>  next(err))
       },
