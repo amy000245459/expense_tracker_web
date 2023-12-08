@@ -9,7 +9,7 @@ const records = require('./modules/records')
 router.use('/users', users)
 router.use('/records', authenticator, records)
 router.use('/', (req, res) => res.redirect('/records'))
-router.use('/', generalErrorHandler)
+//router.use('/', generalErrorHandler)
 
 
 module.exports = router

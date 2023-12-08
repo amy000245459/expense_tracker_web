@@ -6,8 +6,8 @@ const moment = require('moment')
 
 recordController = {
     getRecords: (req, res, next) => {
-        //const userId = req.user._id //變數設定
-        Record.find()
+        const userId = req.user._id //變數設定
+        Record.find({userId})
         .populate('categoryId')
         .lean()
         .sort({ _id: 'asc' }) // desc
@@ -31,13 +31,9 @@ recordController = {
       
     },
     postRecord: (req, res, next) => {
-      User.findOne()
-        .lean()
-        .then(user => {
-          const { name, date, amount, categoryId } = req.body
-          if (!name) throw new Error('User name is required!')
-          Record.create({ name, date, amount, categoryId, user:user._id })
-        })
+      const { name, date, amount, categoryId } = req.body
+      const userId = req.user._id
+      Record.create({ name, date, amount, categoryId, userId })
       .then(() => {
         req.flash('success_msg', `A record has been added`)
         res.redirect('/records')
