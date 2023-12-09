@@ -13,6 +13,7 @@ userController = {
           })
     },
     signUpPage: (req, res, next) => { 
+        req.flash('warning_msg', `所有欄位都是必填。`)
         res.render('signup')
     },
     signUp: (req, res, next) => {
