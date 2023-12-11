@@ -12,12 +12,15 @@ recordController = {
         .lean()
         .sort({ _id: 'asc' }) // desc
         .then(records => {
-          records = records.map(({date,categoryId,...rest}) => {
-            return {...rest,categoryId,
+          let total_amount = 0;
+          records = records.map(({date,categoryId,amount,...rest}) => {
+            total_amount += amount
+            return {...rest,categoryId,amount,
                     date: moment(date).format("YYYY MMM DD"),
-                    Category: CATEGORY_ICON[categoryId.name]}})
-          
-          res.render('index', { records,  CATEGORY_ICON})
+                    Category: CATEGORY_ICON[categoryId.name]}
+                   
+                  })
+          res.render('index', { records, total_amount, CATEGORY_ICON})
         })
         .catch(err =>  next(err))
       },

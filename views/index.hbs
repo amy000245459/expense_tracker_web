@@ -1,31 +1,29 @@
-
-<div class="mb-4 text-center">
 {{> message}}
-<table class="table table-striped">
-  <tbody>
-    <tr>
-      <td>總金額: </td>
-        <td><h1 class="display-5"><p class="text-warning">total amount</p></h1></td>
-    </tr>
-    {{#each records}}
-    <tr>
-      <td> 
-            {{ this.date }}
-            {{ this.categoryId.name }}
-            {{ this.name }}
-      </td>
-      <td> {{ this.amount }}</td>
-       
-      <td> 
-              <a class="btn btn-light" href="./records/{{this._id }}">edit</a>
-              <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-                <button class="btn btn-light" type="submit">delete</button>
-              </form>
 
-      </td>  
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
-<a class="btn btn-warning" href="./records/new">新增支出</a>
+<div class="d-flex justify-content-center align-items-center">
+<h4>總金額：</h4><h1 class="text-warning">{{total_amount}}</h1>
 </div>
+<div class="list-group d-lg-flex " >
+{{#each records}}
+  <li class="list-group-item py-1 d-flex justify-content-between align-items-start">
+  <div class="m-3" style="color: rgb(85, 179, 242); width: 30px;">
+      <i class="{{ this.Category }}  fa-2x"></i>
+  </div>  
+  <div class="ms-2 me-auto">
+    <div class="fw-bold fs-5">{{ this.name }}</div>
+    <div class="fs-6">{{ this.date }}</div>
+  </div>
+  <span class=" fs-4 me-2 m-auto">{{ this.amount }}元</span>
+  <div class="col-auto my-auto">
+    <a class="btn btn-light" href="./records/{{this._id }}">edit</a>
+    <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+      <button class="btn btn-light" type="submit">delete</button>
+    </form>
+  </div>
+  </li>
+  {{/each}}
+</div>
+<div class="text-center">
+  <a href="./records/new" class="btn btn-primary mt-2">增加支出</a>
+</div>
+
