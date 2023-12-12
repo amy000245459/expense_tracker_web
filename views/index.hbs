@@ -3,11 +3,11 @@
 <div class="col-1">
 
 <div class="input-group mt-5">
-  <form action="/search" method="get" class="searchForm d-flex ">
+  <form action="/records" method="get" class="searchForm d-flex ">
     <div class="d-flex flex-column align-items-start" >
       <div class="d-flex justify-content-center align-items-start">
-        <label class="input-group-text" for="category">Category</label>
-        <select class="form-select" id="category" name="category" onchange="submit()">
+        <label class="input-group-text" for="categoryId">Category</label>
+        <select class="form-select" id="categoryId" name="categoryId" onchange="submit()">
           <option value="">全部</option>
           {{#each categories}}
           <option value="{{this._id }}" {{#if this.name}}selected{{/if}}>{{ this.name }}</option>
@@ -16,11 +16,11 @@
       </div>
       <div class="d-flex">
         <label class="input-group-text" for="start">Start</label>
-        <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+        <input type="date" id="start" name="start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
       </div>
       <div class="d-flex">
         <label class="input-group-text" for="end">End</label>
-        <input type="date" id="end" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+        <input type="date" id="end" name="start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
       </div>
     </div>
   </form>

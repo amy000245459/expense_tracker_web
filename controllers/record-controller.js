@@ -6,9 +6,17 @@ const moment = require('moment')
 
 recordController = {
     getRecords: (req, res, next) => {
-        const userId = req.user._id //變數設定
+      console.log('~~~~~~')
+        console.log(req.query)
+        console.log(req.body)
+        const condition = {}
+        condition['userId'] = req.user._id
+        if(req.query.categoryId) {
+          condition['categoryId'] = req.query.categoryId
+        } 
+        console.log(condition)
         Promise.all([
-          Record.find({userId})
+          Record.find(condition)
           .populate('categoryId')
           .lean()
           .sort({ date: 'asc' }), // desc
