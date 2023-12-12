@@ -8,19 +8,20 @@
       <div class="d-flex justify-content-center align-items-start">
         <label class="input-group-text" for="categoryId">Category</label>
         <select class="form-select" id="categoryId" name="categoryId" onchange="submit()">
-          <option value="">全部</option>
+          <option>Select</option>
+          <option value="">All</option>
           {{#each categories}}
-          <option value="{{this._id }}" {{#if this.name}}selected{{/if}}>{{ this.name }}</option>
+          <option value="{{this._id }}" {{#ifCond this._id ../condition.categoryId}} selected {{/ifCond}}>{{ this.name }}</option>
           {{/each}}
         </select>
       </div>
       <div class="d-flex">
         <label class="input-group-text" for="start">Start</label>
-        <input type="date" id="start" name="start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+        <input type="date" id="start" name="start" onchange="submit()" value="2022-01-01" min="2022-01-01" max="2023-12-31" />
       </div>
       <div class="d-flex">
         <label class="input-group-text" for="end">End</label>
-        <input type="date" id="end" name="start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+        <input type="date" id="end" name="end" onchange="submit()" value="2024-12-31" min="2023-01-01" max="2024-12-31" />
       </div>
     </div>
   </form>
@@ -29,7 +30,6 @@
 
 
 <div class="col-10">
-
 <div class=" container mt-2"  style="width: 60%">
     <div class="d-flex justify-content-center align-items-center">
     <h4>總金額：</h4><h1 class="text-warning">{{total_amount}}</h1>
@@ -38,7 +38,7 @@
     {{#each records}}
       <li class="list-group-item py-1 d-flex justify-content-between align-items-start">
         <div class="m-2" style="color: rgb(85, 179, 242); width: 30px;">
-            <i class="{{ this.Category }}  fa-2x"></i>
+            <i class="fa {{ this.Category }}  fa-2x"></i>
         </div>  
         <div class="ms-2 me-auto">
           <div class="fw-bold fs-5">{{ this.name }}</div>

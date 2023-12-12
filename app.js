@@ -8,12 +8,13 @@ const flash = require('connect-flash')
 const methodOverride = require('method-override')
 const usePassport = require('./config/passport')
 const routes = require('./routes')
+const handlebarsHelpers = require('./helper/handlebars-helpers')
 require('./config/mongoose')
 
 const app = express()
 const PORT = process.env.PORT 
 
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', 'hbs')
 app.use(express.urlencoded({ extended: true }))
 app.use(session({ secret: 'SESSION_SECRET', resave: false, saveUninitialized: false }))
