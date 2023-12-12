@@ -1,29 +1,64 @@
-{{> message}}
+<div class="container">
+<div class="row">
+<div class="col-1">
 
-<div class="d-flex justify-content-center align-items-center">
-<h4>總金額：</h4><h1 class="text-warning">{{total_amount}}</h1>
+<div class="input-group mt-5">
+  <form action="/search" method="get" class="searchForm d-flex ">
+    <div class="d-flex flex-column align-items-start" >
+      <div class="d-flex justify-content-center align-items-start">
+        <label class="input-group-text" for="category">Category</label>
+        <select class="form-select" id="category" name="category" onchange="submit()">
+          <option value="">全部</option>
+          {{#each categories}}
+          <option value="{{this._id }}" {{#if this.name}}selected{{/if}}>{{ this.name }}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="d-flex">
+        <label class="input-group-text" for="start">Start</label>
+        <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+      </div>
+      <div class="d-flex">
+        <label class="input-group-text" for="end">End</label>
+        <input type="date" id="end" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+      </div>
+    </div>
+  </form>
 </div>
-<div class="list-group d-lg-flex " >
-{{#each records}}
-  <li class="list-group-item py-1 d-flex justify-content-between align-items-start">
-  <div class="m-3" style="color: rgb(85, 179, 242); width: 30px;">
-      <i class="{{ this.Category }}  fa-2x"></i>
-  </div>  
-  <div class="ms-2 me-auto">
-    <div class="fw-bold fs-5">{{ this.name }}</div>
-    <div class="fs-6">{{ this.date }}</div>
-  </div>
-  <span class=" fs-4 me-2 m-auto">{{ this.amount }}元</span>
-  <div class="col-auto my-auto">
-    <a class="btn btn-light" href="./records/{{this._id }}">edit</a>
-    <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-      <button class="btn btn-light" type="submit">delete</button>
-    </form>
-  </div>
-  </li>
-  {{/each}}
 </div>
-<div class="text-center">
-  <a href="./records/new" class="btn btn-primary mt-2">增加支出</a>
+
+
+<div class="col-10">
+
+<div class=" container mt-2"  style="width: 60%">
+    <div class="d-flex justify-content-center align-items-center">
+    <h4>總金額：</h4><h1 class="text-warning">{{total_amount}}</h1>
+    </div>
+  <div class="list-group d-flex " >
+    {{#each records}}
+      <li class="list-group-item py-1 d-flex justify-content-between align-items-start">
+        <div class="m-2" style="color: rgb(85, 179, 242); width: 30px;">
+            <i class="{{ this.Category }}  fa-2x"></i>
+        </div>  
+        <div class="ms-2 me-auto">
+          <div class="fw-bold fs-5">{{ this.name }}</div>
+          <div class="fs-6">{{ this.date }}</div>
+        </div>
+        <span class=" fs-4 me-2 m-auto">{{ this.amount }}元</span>
+        <div class="col-auto my-auto">
+          <a class="btn btn-light" href="./records/{{this._id }}">Edit</a>
+          <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+            <button class="btn btn-light" type="submit">Delete</button>
+          </form>
+        </div>
+      </li>
+    {{/each}}
+  </div>
+  <div class="text-center">
+    <a href="./records/new" class="btn btn-primary mt-2">增加支出</a>
+  </div>
+</div>
+
+</div>
 </div>
 

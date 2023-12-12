@@ -7,11 +7,15 @@ const moment = require('moment')
 recordController = {
     getRecords: (req, res, next) => {
         const userId = req.user._id //變數設定
-        Record.find({userId})
-        .populate('categoryId')
-        .lean()
-        .sort({ _id: 'asc' }) // desc
-        .then(records => {
+        Promise.all([
+          Record.find({userId})
+          .populate('categoryId')
+          .lean()
+          .sort({ date: 'asc' }), // desc
+          Category.find()
+          .lean()
+        ]        )
+        .then(([records, categories]) => {
           let total_amount = 0;
           records = records.map(({date,categoryId,amount,...rest}) => {
             total_amount += amount
@@ -20,7 +24,7 @@ recordController = {
                     Category: CATEGORY_ICON[categoryId.name]}
                    
                   })
-          res.render('index', { records, total_amount, CATEGORY_ICON})
+          res.render('index', { records, total_amount, CATEGORY_ICON, categories})
         })
         .catch(err =>  next(err))
       },
